@@ -43,7 +43,6 @@ class UserController extends Controller
         if ($token = auth()->attempt($request->validated()['user'])) {
             return $this->userResponse($token);
         }
-
         abort(Response::HTTP_FORBIDDEN);
     }
 
