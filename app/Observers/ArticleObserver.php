@@ -19,7 +19,7 @@ class ArticleObserver
         ArticleRevision::create([
             'article_id' => $article->id,
             'data' => $article->getOriginal(),
-            'user_id' => auth()->id(),
+            'user_id' => auth()->id() ?? $article->user_id,
         ]);
     }
 
