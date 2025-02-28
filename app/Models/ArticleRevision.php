@@ -10,6 +10,10 @@ class ArticleRevision extends Model
 
     protected $fillable = ['data' , 'article_id', 'user_id'];
 
+    protected $casts =[
+        'data' => 'array'
+    ];
+
     public function article(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Article::class);

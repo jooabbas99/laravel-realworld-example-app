@@ -20,6 +20,7 @@ Route::prefix('articles')->group(function () {
     Route::get('/', [ArticleController::class, 'index']);
     Route::get('feed', [ArticleController::class, 'feed']);
     Route::get('{article}', [ArticleController::class, 'show']);
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -39,6 +40,12 @@ Route::middleware('auth')->group(function () {
         Route::delete('{article}', [ArticleController::class, 'destroy']);
         Route::post('{article}/favorite', [ArticleController::class, 'favorite']);
         Route::delete('{article}/favorite', [ArticleController::class, 'unfavorite']);
+        Route::middleware('articleOwner')->group(function (){
+
+            Route::get('{article}/revisions', [\App\Http\Controllers\ArticleRevisionController::class, 'index']);
+            Route::get('{article}/revisions/{revision}', [\App\Http\Controllers\ArticleRevisionController::class, 'show']);
+            Route::post('{article}/revisions/{revision}/revert', [\App\Http\Controllers\ArticleRevisionController::class, 'revert']);
+        });
     });
 
     Route::prefix('articles')->group(function () {
